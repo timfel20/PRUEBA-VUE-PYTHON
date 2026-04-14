@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+env/
+db.sqlite3
+*.log
+
+# Secrets
+credentials/service-account.json
+
+# Static
+staticfiles/
+media/
