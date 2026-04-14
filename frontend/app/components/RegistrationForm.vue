@@ -173,8 +173,7 @@ import { reactive, ref } from 'vue'
 import type { UsuarioForm, ApiError } from '../types/usuario'
 import { useApi } from '../composables/useApi'
 
-// Los datos del formulario (reactivo -se actualiza automáticamente)
-const form = reactive<UsuarioForm>({
+const initialState: UsuarioForm = {
   nombre: '',
   apellidos: '',
   fecha_nacimiento: '',
@@ -182,7 +181,14 @@ const form = reactive<UsuarioForm>({
   alergias: [],
   email: '',
   password: ''
-})
+}
+
+// Los datos del formulario (reactivo -se actualiza automáticamente)
+const form = reactive<UsuarioForm>({ ...initialState })
+
+const resetForm = () => {
+  Object.assign(form, initialState)
+}
 
 // Variables de estado para manejar la UI
 const loading = ref(false)           // Se estando procesando el registro?
@@ -218,6 +224,12 @@ const handleSubmit = async () => {
       success.value = true
       successMessage.value = response.message
       sheetsSynced.value = response.sheets_synced || false
+      resetForm() // Limpiar el formulario después de un registro exitoso
+
+      setTimeout(() => {
+      success.value = false
+    }, 5000)
+    
     } else {
       // Si hay error de valiacion desde el backend, lo mostramos
       apiError.value = response.message
