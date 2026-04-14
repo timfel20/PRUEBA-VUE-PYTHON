@@ -16,4 +16,4 @@ Urls
 Base URL : http://localhost:8000/api
 
 Other
-http://localhost:8000/api/registro/
+http://localhost:8000/api/registro
